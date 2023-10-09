@@ -9,6 +9,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.kireaji.instantqrreader.ui.theme.InstantQRReaderTheme
 import com.kireaji.instantqrreader.ui.QRCodeReaderScreen
+import android.content.Intent
+import android.net.Uri
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,6 +26,10 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+        // ATTENTION: This was auto-generated to handle app links.
+        val appLinkIntent: Intent = intent
+        val appLinkAction: String? = appLinkIntent.action
+        val appLinkData: Uri? = appLinkIntent.data
     }
 }
 
