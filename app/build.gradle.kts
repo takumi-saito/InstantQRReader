@@ -35,14 +35,14 @@ android {
     flavorDimensions.add("appType")
     productFlavors {
         create("instant") {
-            versionCode = 100
+            versionCode = 101
             versionName = "v1.0.0-instant"
         }
         create("installed") {
             // 1-2桁revision
             // 3-4桁instant version
             // 5以降はアプリVer
-            versionCode = 10100
+            versionCode = 10101
             versionName = "v1.0.0"
         }
     }

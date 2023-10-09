@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">InstantQRReader</string>
+    <string name="asset_statements" translatable="false">[{ \"include\": \"https://instantqrreader.web.app/.well-known/assetlinks.json\" }]</string>
 </resources>
