@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "2224281962",
+    "project_id": "instantqrreader",
+    "storage_bucket": "instantqrreader.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:2224281962:android:a931022e4ca8a4e3a76d13",
+        "android_client_info": {
+          "package_name": "com.kireaji.instantqrreader"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOy3RCXxwIv-7G5nodz_pdANfopVg05E4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
