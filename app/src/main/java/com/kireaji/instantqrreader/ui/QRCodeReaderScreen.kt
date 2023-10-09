@@ -98,6 +98,7 @@ fun QRCodeReaderScreen() {
             ) {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(16.dp, alignment = Alignment.CenterVertically),
                     modifier = Modifier.padding(16.dp)
                 ) {
                     QRCodeView(qrCodeContent)
