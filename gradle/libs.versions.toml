@@ -8,7 +8,7 @@ espresso-core = "3.5.1"
 lifecycle-runtime-ktx = "2.6.2"
 activity-compose = "1.7.2"
 compose-bom = "2023.03.00"
-zxing = "4.2.0"
+zxing = "4.3.0"
 instantapps = "17.0.0"
 
 [libraries]
@@ -19,6 +19,9 @@ espresso-core = { group = "androidx.test.espresso", name = "espresso-core", vers
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
 activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity-compose" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
+material = { group = "androidx.compose.material", name = "material" }
+material-icons = { group = "androidx.compose.material", name = "material-icons-core" }
+material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended" }
 ui = { group = "androidx.compose.ui", name = "ui" }
 ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }

@@ -63,6 +63,8 @@ dependencies {
     implementation(libs.zxing.android.embedded)
     implementation(libs.play.services.instantapps)
     implementation(libs.material3)
+    implementation(libs.material.icons)
+    implementation(libs.material.icons.extended)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
