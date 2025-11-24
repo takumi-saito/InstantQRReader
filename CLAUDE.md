@@ -65,7 +65,7 @@ com.kireaji.instantqrreader/
 ## 開発環境
 
 - **Min SDK**: 28 (Android 9)
-- **Target SDK**: 34
+- **Target SDK**: 35
 - **Kotlin**: 1.8.10
 - **Java**: 17
 - **Compose Compiler**: 1.4.3
