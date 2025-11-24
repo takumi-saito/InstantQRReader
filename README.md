@@ -4,6 +4,8 @@
 
 <a href="https://play.google.com/store/apps/details?id=com.kireaji.instantqrreader"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/static/images/badges/ja_badge_web_generic.png" height="80"></a>
 
+**[アプリ説明ページ](https://instantqrreader.web.app/)**
+
 ## 機能
 
 - **QRコード読み取り**: カメラでQRコードをスキャン
