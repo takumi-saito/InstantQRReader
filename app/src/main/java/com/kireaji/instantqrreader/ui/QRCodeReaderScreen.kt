@@ -50,7 +50,9 @@ import com.kireaji.instantqrreader.ui.widget.HandleQRCodeActions
 import com.kireaji.instantqrreader.ui.widget.HyperlinkText
 
 @Composable
-fun QRCodeReaderScreen() {
+fun QRCodeReaderScreen(
+    debugText: String? = null,
+) {
     var qrCodeContent by remember { mutableStateOf<String?>(null) }
     val context = LocalContext.current
 
@@ -115,6 +117,7 @@ fun QRCodeReaderScreen() {
             }
             HandleQRCodeActions(qrCodeContent)
         }
+        Text(text = debugText ?: "empty", textAlign = TextAlign.Start, modifier = Modifier.horizontalScroll(rememberScrollState()))
     }
 }
 
