@@ -1,0 +1,22 @@
+name: Android Debug Build
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  debug-build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup Android Build Environment
+      uses: ./.github/actions/setup-android-build
+      with:
+        google-services-json-base64: ${{ secrets.GOOGLE_SERVICES_JSON_BASE64 }}
+
+    - name: Build
+      run: ./gradlew assembleDebug

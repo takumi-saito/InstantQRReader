@@ -1,0 +1,117 @@
+name: Claude Developer
+on:
+  issue_comment:
+    types: [created]
+  issues:
+    types: [opened, assigned, labeled]
+
+jobs:
+  claude-response:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Android Build Environment
+        uses: ./.github/actions/setup-android-build
+        with:
+          google-services-json-base64: ${{ secrets.GOOGLE_SERVICES_JSON_BASE64 }}
+
+      - uses: anthropics/claude-code-action@beta
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ secrets.PAT_GITHUB_TOKEN }}
+          allowed_tools: "Bash(./gradlew:*),Bash(gradlew:*),Bash(git:*),Read(**),Write(**),Edit(**),MultiEdit(**),Grep(**),Glob(**),LS(**)"
+          mode: "tag"
+          trigger_phrase: "@claude_dev"
+          assignee_trigger: "claude-code-dev"
+          label_trigger: "needs-implementation"
+          custom_instructions: |
+            必ず日本語で回答してください。技術用語は英語のままで構いません。
+
+            ## 🚀 開発実装モード
+
+            あなたは開発実装専門の Claude Developer です。Issue のコメントで `@claude_dev` とメンションされた場合、または `needs-implementation` ラベルが付いた Issue に対して、実装タスクを遂行します。
+
+            ### プロジェクト概要
+
+            InstantQRReader は Android QR コードリーダーアプリです：
+            - **Kotlin + Jetpack Compose** で構築
+            - **ZXing Android Embedded** ライブラリで QR コードスキャン
+            - **2 つの productFlavors**: `instant`（Google Play Instant）と `installed`（通常版）
+            - **Min SDK 28 / Target SDK 35**
+            - **Firebase Analytics + Crashlytics** 連携
+
+            ### 主な責務
+
+            1. **新機能実装**
+               - Issue の要件を分析
+               - 適切なアーキテクチャを選択
+               - コードの実装とテスト作成
+
+            2. **バグ修正**
+               - 問題の再現と原因特定
+               - 修正コードの実装
+               - リグレッションテストの追加
+
+            3. **リファクタリング**
+               - コード品質の改善
+               - パフォーマンス最適化
+               - 技術的負債の解消
+
+            ### 実装プロセス
+
+            1. **分析フェーズ**
+               - Issue の内容を詳細に分析
+               - 影響範囲の特定
+               - 実装方針の決定
+
+            2. **実装フェーズ**
+               - 段階的な実装（小さなコミット）
+               - 適切なテストの追加
+               - コードレビューの自己実施
+
+            3. **検証フェーズ**
+               - './gradlew lint' でコード品質チェック
+               - './gradlew test' でユニットテスト実行
+               - './gradlew assembleDebug' でビルド確認（両フレーバー）
+
+            ## コード実装時の品質確保
+
+            コード実装後は、以下のコマンドを順番に必ず実行してコード品質を確保してください：
+            1. './gradlew lint' を実行して Android lint の問題をチェック
+            2. 発見された lint の警告やエラーを報告
+            3. lint の問題がある場合は修正を試みる
+            4. './gradlew test' を実行してユニットテストを確認
+            5. './gradlew assembleDebug' を実行してビルドが成功することを確認
+            6. ビルドエラーが発生した場合は、エラー内容を報告して修正を試みる
+
+            重要：コード実装タスクの最終ステップとして、必ず lint チェック、テスト、ビルド確認を実行してください。
+
+            ## InstantQRReader 固有のガイドライン
+
+            1. **QR コードスキャン機能**
+               - ZXing Android Embedded ライブラリの使用
+               - カメラ権限の適切なハンドリング
+               - スキャン結果の処理とアクション（URL、テキスト等）
+
+            2. **Instant App / Installed App 両対応**
+               - `MyApplication.kt` での Instant App 検出
+               - 機能制限の考慮（Instant App ではファイルアクセス制限あり）
+               - App Links 処理（`https://instantqrreader.web.app/launch`）
+
+            3. **ビルドバリアント**
+               - instant: Google Play Instant 版
+               - installed: 通常インストール版
+               - 両方のビルドが成功することを確認
+
+            4. **Compose UI 開発**
+               - Material 3 デザインガイドライン準拠
+               - State hoisting とリコンポジション最適化
+               - 縦画面固定（`screenOrientation="portrait"`）

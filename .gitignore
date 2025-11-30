@@ -10,3 +10,8 @@
 local.properties
 *.apk
 *.aab
+
+# Signing
+keystore.properties
+*.jks
+service_account.json

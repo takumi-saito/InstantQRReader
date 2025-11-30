@@ -1,0 +1,21 @@
+name: Android Release Build
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  release-build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Build Release AAB
+      uses: ./.github/actions/build-release-aab
+      with:
+        google-services-json-base64: ${{ secrets.GOOGLE_SERVICES_JSON_BASE64 }}
+        release-jks-base64: ${{ secrets.RELEASE_JKS_BASE64 }}
+        keystore-properties: ${{ secrets.KEYSTORE_PROPERTIES }}

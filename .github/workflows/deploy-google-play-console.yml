@@ -1,0 +1,52 @@
+name: Deploy Google Play Console
+
+on:
+  push:
+    branches:
+      - release
+
+jobs:
+  deploy-google-play-console:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build Release AAB
+        uses: ./.github/actions/build-release-aab
+        with:
+          google-services-json-base64: ${{ secrets.GOOGLE_SERVICES_JSON_BASE64 }}
+          release-jks-base64: ${{ secrets.RELEASE_JKS_BASE64 }}
+          keystore-properties: ${{ secrets.KEYSTORE_PROPERTIES }}
+
+      - name: Create service_account.json
+        run: echo '${{ secrets.SERVICE_ACCOUNT_JSON }}' > service_account.json
+
+      - name: Deploy to Play Store
+        uses: r0adkll/upload-google-play@v1.0.15
+        with:
+          serviceAccountJson: service_account.json
+          packageName: com.kireaji.instantqrreader
+          releaseFiles: app/build/outputs/bundle/installedRelease/*.aab
+          track: internal
+          whatsNewDirectory: distribution/whatsnew
+
+      - uses: 8398a7/action-slack@v2.5.2
+        if: failure()
+        with:
+          status: ${{ job.status }}
+          text: リリースビルドが失敗しました。確認をお願いします。
+          mention: 'here'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+
+      - uses: 8398a7/action-slack@v2.5.2
+        if: success()
+        with:
+          status: ${{ job.status }}
+          text: リリースビルドが完了しました！
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
