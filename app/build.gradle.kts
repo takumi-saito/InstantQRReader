@@ -53,15 +53,15 @@ android {
     flavorDimensions.add("appType")
     productFlavors {
         create("instant") {
-            versionCode = 110
-            versionName = "v1.1.0-instant"
+            versionCode = 111
+            versionName = "v1.1.1-instant"
         }
         create("installed") {
             // 1-2桁revision
             // 3-4桁instant version
             // 5以降はアプリVer
-            versionCode = 11001
-            versionName = "v1.1.0"
+            versionCode = 11101
+            versionName = "v1.1.1"
         }
     }
     compileOptions {
