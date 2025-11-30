@@ -10,6 +10,7 @@
 local.properties
 *.apk
 *.aab
+app/google-services.json
 
 # Signing
 keystore.properties
