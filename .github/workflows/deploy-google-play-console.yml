@@ -33,15 +33,15 @@ jobs:
           track: internal
           whatsNewDirectory: distribution/whatsnew
 
-      # Instant版のデプロイ
-      - name: Deploy Instant App to Play Store
-        uses: r0adkll/upload-google-play@v1.0.15
-        with:
-          serviceAccountJson: service_account.json
-          packageName: com.kireaji.instantqrreader
-          releaseFiles: app/build/outputs/bundle/instantRelease/*.aab
-          track: instant:internal
-          whatsNewDirectory: distribution/whatsnew
+      # Instant版のデプロイ (現在無効化 - Google Play Console でトラック設定後に有効化)
+      # - name: Deploy Instant App to Play Store
+      #   uses: r0adkll/upload-google-play@v1.0.15
+      #   with:
+      #     serviceAccountJson: service_account.json
+      #     packageName: com.kireaji.instantqrreader
+      #     releaseFiles: app/build/outputs/bundle/instantRelease/*.aab
+      #     track: instant:internal
+      #     whatsNewDirectory: distribution/whatsnew
 
       - uses: 8398a7/action-slack@v2.5.2
         if: failure()

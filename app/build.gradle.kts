@@ -17,12 +17,12 @@ plugins {
 
 android {
     namespace = "com.kireaji.instantqrreader"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.kireaji.instantqrreader"
         minSdk = 28
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
@@ -53,15 +53,15 @@ android {
     flavorDimensions.add("appType")
     productFlavors {
         create("instant") {
-            versionCode = 111
-            versionName = "v1.1.1-instant"
+            versionCode = 120
+            versionName = "v1.2.0-instant"
         }
         create("installed") {
             // 1-2桁revision
             // 3-4桁instant version
             // 5以降はアプリVer
-            versionCode = 11101
-            versionName = "v1.1.1"
+            versionCode = 12001
+            versionName = "v1.2.0"
         }
     }
     compileOptions {
