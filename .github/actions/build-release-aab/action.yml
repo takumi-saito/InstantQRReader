@@ -17,8 +17,9 @@
 #   1. Android ビルド環境のセットアップ (setup-android-build を呼び出し)
 #   2. release.jks (署名用 keystore) のデコード・配置
 #   3. keystore.properties の作成 (署名設定)
-#   4. Release AAB のビルド (./gradlew bundleInstalledRelease)
-#   5. AAB ファイルを artifact としてアップロード
+#   4. Installed Release AAB のビルド (./gradlew bundleInstalledRelease)
+#   5. Instant Release AAB のビルド (./gradlew bundleInstantRelease)
+#   6. AAB/APK ファイルを artifact としてアップロード
 #
 # 必要な GitHub Secrets:
 #   - GOOGLE_SERVICES_JSON_BASE64: google-services.json を Base64 エンコードした値
@@ -27,8 +28,10 @@
 #     (storePassword, keyPassword, keyAlias, storeFile を含む)
 #
 # 出力:
-#   - artifact 名: app-release-aab
+#   - artifact 名: app-installed-release-aab
 #   - ファイル: app/build/outputs/bundle/installedRelease/*.aab
+#   - artifact 名: app-instant-release-aab
+#   - ファイル: app/build/outputs/bundle/instantRelease/*.aab
 #
 # ==============================================================================
 
@@ -73,18 +76,31 @@ runs:
       shell: bash
       run: echo "${{ inputs.keystore-properties }}" > keystore.properties
 
-    # Release AAB のビルド (installed フレーバー)
+    # Installed Release AAB のビルド
     # - bundleInstalledRelease: installed フレーバーの AAB 形式で出力 (Google Play 提出用)
     # - --stacktrace: エラー時の詳細ログ出力
     # - --no-daemon: CI 環境向けにデーモン無効化
-    - name: Build AAB
+    - name: Build Installed AAB
       shell: bash
       run: ./gradlew bundleInstalledRelease --stacktrace --no-daemon
 
-    # AAB を artifact としてアップロード
+    # Instant Release AAB のビルド
+    # - bundleInstantRelease: instant フレーバーの AAB 形式で出力 (Google Play Instant 用)
+    - name: Build Instant AAB
+      shell: bash
+      run: ./gradlew bundleInstantRelease --stacktrace --no-daemon
+
+    # Installed AAB を artifact としてアップロード
     # - 後続の deploy ジョブや手動ダウンロードで利用可能
-    - name: Upload AAB artifact
+    - name: Upload Installed AAB artifact
       uses: actions/upload-artifact@v4
       with:
-        name: app-release-aab
+        name: app-installed-release-aab
         path: app/build/outputs/bundle/installedRelease/*.aab
+
+    # Instant AAB を artifact としてアップロード
+    - name: Upload Instant AAB artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-instant-release-aab
+        path: app/build/outputs/bundle/instantRelease/*.aab

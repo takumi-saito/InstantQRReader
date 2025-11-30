@@ -23,13 +23,24 @@ jobs:
       - name: Create service_account.json
         run: echo '${{ secrets.SERVICE_ACCOUNT_JSON }}' > service_account.json
 
-      - name: Deploy to Play Store
+      # Installed版のデプロイ
+      - name: Deploy Installed App to Play Store
         uses: r0adkll/upload-google-play@v1.0.15
         with:
           serviceAccountJson: service_account.json
           packageName: com.kireaji.instantqrreader
           releaseFiles: app/build/outputs/bundle/installedRelease/*.aab
           track: internal
+          whatsNewDirectory: distribution/whatsnew
+
+      # Instant版のデプロイ
+      - name: Deploy Instant App to Play Store
+        uses: r0adkll/upload-google-play@v1.0.15
+        with:
+          serviceAccountJson: service_account.json
+          packageName: com.kireaji.instantqrreader
+          releaseFiles: app/build/outputs/bundle/instantRelease/*.aab
+          track: instant:internal
           whatsNewDirectory: distribution/whatsnew
 
       - uses: 8398a7/action-slack@v2.5.2
