@@ -18,7 +18,7 @@
 #   2. release.jks (署名用 keystore) のデコード・配置
 #   3. keystore.properties の作成 (署名設定)
 #   4. Installed Release AAB のビルド (./gradlew bundleInstalledRelease)
-#   5. Instant Release APK のビルド (./gradlew assembleInstantRelease)
+#   5. Instant Release AAB のビルド (./gradlew bundleInstantRelease)
 #   6. AAB/APK ファイルを artifact としてアップロード
 #
 # 必要な GitHub Secrets:
@@ -30,8 +30,8 @@
 # 出力:
 #   - artifact 名: app-installed-release-aab
 #   - ファイル: app/build/outputs/bundle/installedRelease/*.aab
-#   - artifact 名: app-instant-release-apk
-#   - ファイル: app/build/outputs/apk/instant/release/*.apk
+#   - artifact 名: app-instant-release-aab
+#   - ファイル: app/build/outputs/bundle/instantRelease/*.aab
 #
 # ==============================================================================
 
@@ -84,11 +84,11 @@ runs:
       shell: bash
       run: ./gradlew bundleInstalledRelease --stacktrace --no-daemon
 
-    # Instant Release APK のビルド
-    # - assembleInstantRelease: instant フレーバーの APK 形式で出力 (Google Play Instant 用)
-    - name: Build Instant APK
+    # Instant Release AAB のビルド
+    # - bundleInstantRelease: instant フレーバーの AAB 形式で出力 (Google Play Instant 用)
+    - name: Build Instant AAB
       shell: bash
-      run: ./gradlew assembleInstantRelease --stacktrace --no-daemon
+      run: ./gradlew bundleInstantRelease --stacktrace --no-daemon
 
     # Installed AAB を artifact としてアップロード
     # - 後続の deploy ジョブや手動ダウンロードで利用可能
@@ -98,9 +98,9 @@ runs:
         name: app-installed-release-aab
         path: app/build/outputs/bundle/installedRelease/*.aab
 
-    # Instant APK を artifact としてアップロード
-    - name: Upload Instant APK artifact
+    # Instant AAB を artifact としてアップロード
+    - name: Upload Instant AAB artifact
       uses: actions/upload-artifact@v4
       with:
-        name: app-instant-release-apk
-        path: app/build/outputs/apk/instant/release/*.apk
+        name: app-instant-release-aab
+        path: app/build/outputs/bundle/instantRelease/*.aab
