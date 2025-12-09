@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.webkit.URLUtil
+import androidx.core.net.toUri
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -36,7 +37,7 @@ fun HandleQRCodeActions(qrText: String) {
         if (URLUtil.isValidUrl(qrText)) {
             Button(onClick = {
                 // ブラウザで開く
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(qrText))
+                val intent = Intent(Intent.ACTION_VIEW, qrText.toUri())
                 context.startActivity(intent)
             }) {
                 // アイコンを表示
